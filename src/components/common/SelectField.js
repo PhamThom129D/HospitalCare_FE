@@ -10,14 +10,18 @@ import ErrorText from "./ErrorText";
 
 function SelectField({ label, name, options, register, error, validation }) {
   return (
-    <FormControl fullWidth error={!!error}>
+    <FormControl
+      fullWidth
+      error={!!error}
+      sx={{ mt: 2 }} // margin-top: 8px (1 * 8px); bạn cũng có thể dùng mt: '10px'
+    >
       <InputLabel id={`${name}-label`}>{label}</InputLabel>
       <Select
         labelId={`${name}-label`}
         label={label}
         defaultValue=""
         {...register(name, validation)}
-        style={{ width: "250px" }}
+        fullWidth
       >
         <MenuItem value="" disabled>
           -- Chọn {label.toLowerCase()} --
@@ -33,6 +37,5 @@ function SelectField({ label, name, options, register, error, validation }) {
     </FormControl>
   );
 }
-
 
 export default SelectField;

@@ -16,6 +16,6 @@ export const redirectByRole = (roles, navigate) => {
       navigate("/patient/home");
       break;
     default:
-      navigate("/");
+      navigate("/dashboard");
   }
 };
