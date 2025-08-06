@@ -4,13 +4,15 @@ export const login = (data) => {
   return api.post('/auth/login', data);
 };
 
-export const loginWithGoogle = (data) => {
-  return api.post('/auth/google', data);
-};
+// export const loginWithGoogle = (data) => {
+//   return api.get('/auth/google', data);
+// };
 
 export const loginWithOtp = (data) => {
+  console.log("Gọi API /auth/login-otp với:", data);
   return api.post('/auth/login-otp', data);
 };
+
 
 export const verifyOtp = (data) => {
   return api.post('/auth/verify-otp', data);

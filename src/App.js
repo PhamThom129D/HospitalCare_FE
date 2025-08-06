@@ -1,28 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginForm from "./components/auth/LoginForm";
-import RegisterForm from "./components/auth/RegisterForm";
-import ForgotPasswordForm from "./components/auth/ForgotPasswordForm";
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import AppRoutes from "./router/AppRouter";
 
 function App() {
-  const handleLogin = (data) => {
-    console.log("Login", data);
-  };
-
-  const handleRegister = (data) => {
-    console.log("Register", data);
-  };
-
-  const handleForgotPassword = (data) => {
-    console.log("Forgot password", data.email);
-  };
-
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<LoginForm onSubmit={handleLogin} />} />
-        <Route path="/register" element={<RegisterForm onSubmit={handleRegister} />} />
-        <Route path="/forgot-password" element={<ForgotPasswordForm onSubmit={handleForgotPassword} />} />
-      </Routes>
+      <AppRoutes />
+      <ToastContainer />
     </Router>
   );
 }

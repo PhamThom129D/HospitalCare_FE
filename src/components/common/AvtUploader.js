@@ -11,7 +11,7 @@ function AvatarUpload({ preview, onChange }) {
           width: 160,
           height: 160,
           mb: 2,
-          border: "2px solid rgb(123, 179, 235)",
+          border: "2px solid rgba(154, 159, 163, 1)",
           boxShadow: 3,
         }}
       />
