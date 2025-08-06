@@ -23,14 +23,17 @@ import {
   nameRule,
   phoneRule,
 } from "../../utils/validators";
+import { notifyWarning } from "../../utils/notify";
 
 function RegisterForm({ onSubmit }) {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+const {
+  register,
+  handleSubmit,
+  watch,
+  setError,
+  formState: { errors },
+} = useForm();
+
 
   const password = watch("password");
 
@@ -45,16 +48,49 @@ function RegisterForm({ onSubmit }) {
     }
   };
 
-  const handleFinalSubmit = (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
+const handleFinalSubmit = async (data) => {
+  if (!data.email && !data.phone) {
+    setError("email", {
+      type: "manual",
+      message: "Vui lòng nhập email hoặc số điện thoại.",
     });
-    if (avatarFile) {
-      formData.append("avatar", avatarFile);
-    }
-    onSubmit(formData);
+    setError("phone", {
+      type: "manual",
+      message: "Vui lòng nhập email hoặc số điện thoại.",
+    });
+    return;
+  }
+
+  const formattedData = {
+    fullname: data.fullName,
+    phonenumber: data.phone,
+    email: data.email,
+    password: data.password,
+    confirmPassword: data.confirmPassword,
+    gender: data.gender,
+    role: data.role,
+    avatarFile: avatarFile,
   };
+
+  try {
+    await onSubmit(formattedData);
+  } catch (err) {
+    const errorMessage = err?.response?.data || "Đăng ký thất bại";
+
+    if (errorMessage.includes("Email đã tồn tại")) {
+      setError("email", { type: "manual", message: errorMessage });
+    } else if (errorMessage.includes("Số điện thoại đã tồn tại")) {
+      setError("phone", { type: "manual", message: errorMessage });
+    } else if (errorMessage.includes("không được để trống")) {
+      notifyWarning(errorMessage);
+    } else {
+      notifyWarning(errorMessage);
+    }
+  }
+};
+
+
+
 
   return (
     <FormWrapper title="Đăng ký tài khoản">
@@ -116,6 +152,7 @@ function RegisterForm({ onSubmit }) {
                 name="role"
                 register={register}
                 error={errors.role}
+                validation={{ required: "Vui lòng chọn vai trò" }} 
                 options={[
                   { value: "ROLE_DOCTOR", label: "Bác sĩ" },
                   { value: "ROLE_RECEPTIONIST", label: "Nhân viên tiếp nhận" },
@@ -130,6 +167,7 @@ function RegisterForm({ onSubmit }) {
                 name="gender"
                 register={register}
                 error={errors.gender}
+                validation={{ required: "Vui lòng chọn vai trò" }} 
                 options={[
                   { value: "male", label: "Nam" },
                   { value: "female", label: "Nữ" },
