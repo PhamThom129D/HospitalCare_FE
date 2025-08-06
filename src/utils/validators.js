@@ -5,7 +5,6 @@ export const required = (message = "Không được để trống") => ({
 
 // Email: kiểm tra định dạng email chuẩn
 export const emailRule = {
-  required: "Vui lòng nhập email",
   pattern: {
     value:
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -35,7 +34,6 @@ export const confirmPasswordRule = {
 
 // Số điện thoại Việt Nam: Bắt đầu bằng 0, có thể là các đầu số phổ biến như 03x, 09x, 08x,...
 export const phoneRule = {
-  required: "Vui lòng nhập số điện thoại",
   pattern: {
     value: /^(0[3|5|7|8|9])+([0-9]{8})$/,
     message: "Số điện thoại không hợp lệ (VD: 0912345678)",

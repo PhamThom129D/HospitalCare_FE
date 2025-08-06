@@ -2,7 +2,7 @@
 import React from "react";
 import { Paper, Box, Typography, Container } from "@mui/material";
 
-function FormWrapper({ title, children }) {
+function FormWrapper({ title, children, size = "sm" }) {
   return (
     <Box
       display="flex"
@@ -11,7 +11,7 @@ function FormWrapper({ title, children }) {
       minHeight="100vh"
       sx={{ backgroundColor: "#f5f5f5", px: 2 }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth={size}>
         <Paper
           elevation={3}
           sx={{

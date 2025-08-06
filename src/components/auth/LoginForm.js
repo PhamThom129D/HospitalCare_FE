@@ -14,12 +14,12 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/authService";
 import { redirectByRole } from "../../utils/authUtils";
 import { notifyError } from "../../utils/notify";
 import { required } from "../../utils/validators";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -84,21 +84,11 @@ function LoginForm() {
 
         <Button type="submit">Đăng nhập</Button>
 
-        <Divider sx={{ my: 2 }}>Hoặc</Divider>
+       <Divider sx={{ my: 2 }}>Hoặc</Divider>
+       
+       <GoogleLoginButton />
 
-        <Button
-          type="button"
-          onClick={() => console.log("Google Login")}
-          startIcon={<GoogleIcon />}
-          sx={{
-            backgroundColor: "#DB4437",
-            "&:hover": { backgroundColor: "#c23321" },
-          }}
-        >
-          Đăng nhập bằng Google
-        </Button>
-
-        <Box mt={3} textAlign="center">
+       <Box mt={3} textAlign="center">
           <Typography variant="body2">
             Chưa có tài khoản?{" "}
             <MuiLink component={Link} to="/register" underline="hover">
